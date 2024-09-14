@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrategia Blackjack</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button, select {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Asistente de Blackjack</h1>
+
+  <label for="deck-type">Selecciona el número de mazos:</label><br>
+  <select id="deck-type" onchange="loadStrategy()">
+    <option value="multiple">Varios Mazos</option>
+    <option value="single">Un Mazo</option>
+  </select><br>
+  
+  <label for="player-hand">Mano del Jugador (separadas por coma):</label><br>
+  <input type="text" id="player-hand" placeholder="Ej. 10,6" /><br>
+  
+  <label for="dealer-card">Carta del Crupier (solo número):</label><br>
+  <input type="text" id="dealer-card" placeholder="Ej. 7" /><br>
+  
+  <button onclick="getBlackjackAction()">Sugerir Acción</button>
+  
+  <p id="result"></p>
+
+  <script>
+    let currentScript = null;
+
+    // Función para cargar la estrategia según el número de mazos
+    function loadStrategy() {
+      const deckType = document.getElementById('deck-type').value;
+      
+      if (currentScript) {
+        document.head.removeChild(currentScript);
+        currentScript = null;
+      }
+
+      currentScript = document.createElement('script');
+      if (deckType === 'single') {
+        currentScript.src = 'blackjack_one_mace.js';
+      } else {
+        currentScript.src = 'blackjack.js';
+      }
+
+      document.head.appendChild(currentScript);
+    }
+
+    // Cargar por defecto la estrategia de varios mazos
+    loadStrategy();
+  </script>
+</body>
+</html>
