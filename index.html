@@ -3,69 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estrategia Blackjack</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      padding: 20px;
-      text-align: center;
-    }
-    input, button, select {
-      margin: 10px;
-      padding: 10px;
-      font-size: 16px;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-  </style>
+  <title>Estrategia Blackjack Avanzada</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Asistente de Blackjack</h1>
+  <div class="blackjack-strategy">
+    <h1>Estrategia Avanzada de Blackjack</h1>
+    <div>
+      <h2>Cartas del Jugador</h2>
+      <div id="player-container">
+        <input type="text" class="player-cards" placeholder="Tus cartas (ej: A, 7)">
+      </div>
+      <button id="add-player-button" class="add-player">Añadir Jugador</button>
+    </div>
+    <div>
+      <h2>Carta Visible del Crupier</h2>
+      <input type="text" id="dealer-card" placeholder="Carta del crupier (ej: 9)">
+    </div>
+    <div>
+      <h2>Cantidad de Barajas</h2>
+      <input type="number" id="decks" placeholder="Número de barajas" min="1" value="1">
+    </div>
+    <div id="controls">
+      <button id="calculate-button">Calcular Mejor Jugada</button>
+      <button id="reset-count">Resetear Contador</button>
+    </div>
+    <p id="suggestion"></p>
+    <p id="success-rate"></p>
+    <p>Conteo actual: <span id="card-count">0</span></p>
 
-  <label for="deck-type">Selecciona el número de mazos:</label><br>
-  <select id="deck-type" onchange="loadStrategy()">
-    <option value="multiple">Varios Mazos</option>
-    <option value="single">Un Mazo</option>
-  </select><br>
-  
-  <label for="player-hand">Mano del Jugador (separadas por coma):</label><br>
-  <input type="text" id="player-hand" placeholder="Ej. 10,6" /><br>
-  
-  <label for="dealer-card">Carta del Crupier (solo número):</label><br>
-  <input type="text" id="dealer-card" placeholder="Ej. 7" /><br>
-  
-  <button onclick="getBlackjackAction()">Sugerir Acción</button>
-  
-  <p id="result"></p>
+    <div>
+      <h3>Resumen de Simulaciones</h3>
+      <table id="simulation-results">
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Victorias</th>
+            <th>Derrotas</th>
+            <th>Simulaciones Totales</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-  <script>
-    let currentScript = null;
-
-    // Función para cargar la estrategia según el número de mazos
-    function loadStrategy() {
-      const deckType = document.getElementById('deck-type').value;
-      
-      if (currentScript) {
-        document.head.removeChild(currentScript);
-        currentScript = null;
-      }
-
-      currentScript = document.createElement('script');
-      if (deckType === 'single') {
-        currentScript.src = 'blackjack_one_mace.js';
-      } else {
-        currentScript.src = 'blackjack.js';
-      }
-
-      document.head.appendChild(currentScript);
-    }
-
-    // Cargar por defecto la estrategia de varios mazos
-    loadStrategy();
-  </script>
+    <div>
+      <h3>Historial de Manos</h3>
+      <ul id="hand-history"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

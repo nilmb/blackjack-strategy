@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #2b2b2b;
+    color: white;
+}
+
+.blackjack-strategy {
+    margin: 50px auto;
+    width: 400px;
+    padding: 20px;
+    background-color: #3e3e3e;
+    border-radius: 10px;
+}
+
+input,
+button {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+button {
+    background-color: #f39c12;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e67e22;
+}
+
+#player-container {
+    margin-bottom: 10px;
+}
+
+.add-player {
+    background-color: #3498db;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid white;
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+th {
+    background-color: #333;
+}
