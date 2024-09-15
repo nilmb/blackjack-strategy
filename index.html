@@ -12,7 +12,10 @@
     <div>
       <h2>Cartas del Jugador</h2>
       <div id="player-container">
-        <input type="text" class="player-cards" placeholder="Tus cartas (ej: A, 7)">
+        <div class="player-entry">
+          <input type="text" class="player-cards" placeholder="Tus cartas (ej: A, 7)">
+          <button class="remove-player-button" style="display: none;">Eliminar</button>
+        </div>
       </div>
       <button id="add-player-button" class="add-player">Añadir Jugador</button>
     </div>
@@ -30,10 +33,11 @@
     </div>
     <p id="suggestion"></p>
     <p id="success-rate"></p>
-    <p>Conteo actual: <span id="card-count">0</span></p>
+    <p>Conteo Actual: <span id="card-count">0</span></p>
+    <p>True Count (Ajustado por barajas): <span id="true-count">0</span></p>
 
     <div>
-      <h3>Resumen de Simulaciones</h3>
+      <h3>Resumen de Simulaciones (Resultados basados en 10,000 manos simuladas)</h3>
       <table id="simulation-results">
         <thead>
           <tr>
@@ -41,6 +45,7 @@
             <th>Victorias</th>
             <th>Derrotas</th>
             <th>Simulaciones Totales</th>
+            <th>Porcentaje de Éxito</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -48,7 +53,7 @@
     </div>
 
     <div>
-      <h3>Historial de Manos</h3>
+      <h3>Historial de Simulaciones</h3>
       <ul id="hand-history"></ul>
     </div>
   </div>

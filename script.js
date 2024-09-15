@@ -16,6 +16,10 @@ document.getElementById('calculate-button').addEventListener('click', function()
   updateCardCount(players.flatMap(player => player.cards));
   updateCardCount([dealerCard]);
 
+  const trueCount = (cardCount / decks).toFixed(2);  // Calcular True Count ajustado por barajas
+  document.getElementById('card-count').innerText = cardCount;
+  document.getElementById('true-count').innerText = trueCount;
+
   let simulationResults = simulateHands(players, dealerCard);
   updateHistory(simulationResults);
   displaySimulationResults(simulationResults);
@@ -25,31 +29,13 @@ document.getElementById('calculate-button').addEventListener('click', function()
 
   document.getElementById('suggestion').innerText = `Mejor jugada: ${bestMove}`;
   document.getElementById('success-rate').innerText = `Probabilidad de éxito: ${successRate}%`;
-  document.getElementById('card-count').innerText = cardCount;
 });
 
 document.getElementById('reset-count').addEventListener('click', function() {
   cardCount = 0;
   document.getElementById('card-count').innerText = cardCount;
+  document.getElementById('true-count').innerText = 0;
 });
-
-document.getElementById('add-player-button').addEventListener('click', function() {
-  const playerContainer = document.getElementById('player-container');
-  const newPlayerInput = document.createElement('input');
-  newPlayerInput.type = 'text';
-  newPlayerInput.className = 'player-cards';
-  newPlayerInput.placeholder = `Cartas del Jugador ${players.length + 1}`;
-  playerContainer.appendChild(newPlayerInput);
-});
-
-function updateCardCount(cards) {
-  cards.forEach(card => {
-    const value = cardValue(card);
-    if (value >= 2 && value <= 6) cardCount += 1;  // Cartas bajas +1
-    else if (value === 10 || card === 'A') cardCount -= 1;  // Cartas altas -1
-    // 7, 8, 9 no cambian el conteo
-  });
-}
 
 function simulateHands(players, dealerCard) {
   const simulations = 10000;  // Número de simulaciones por mano
@@ -101,10 +87,10 @@ function drawRandomCard() {
 function updateHistory(simulationResults) {
   const historyList = document.getElementById('hand-history');
   const listItem = document.createElement('li');
-  listItem.textContent = `Simulación: ${simulationResults[0].wins} victorias, ${simulationResults[0].losses} derrotas (Jugador 1)`;
+  const result = simulationResults[0];  // Jugador 1 por defecto
+  const successRate = ((result.wins / result.total) * 100).toFixed(2);
+  listItem.textContent = `Simulación: ${result.wins} victorias, ${result.losses} derrotas (Jugador 1), Éxito: ${successRate}%`;
   historyList.appendChild(listItem);
-
-  handHistory.push(simulationResults);
 }
 
 function displaySimulationResults(simulationResults) {
@@ -112,12 +98,14 @@ function displaySimulationResults(simulationResults) {
   resultsTable.innerHTML = '';
 
   simulationResults.forEach(result => {
+    const successRate = ((result.wins / result.total) * 100).toFixed(2);
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>Jugador ${result.id}</td>
       <td>${result.wins}</td>
       <td>${result.losses}</td>
       <td>${result.total}</td>
+      <td>${successRate}%</td>
     `;
     resultsTable.appendChild(row);
   });
